@@ -15,10 +15,10 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in projects">
-                <td>{{item.name}}</td>
-                <td>{{item.assignedTo}}</td>
-                <td>{{item.priority}}</td>
+              <tr v-for="project in projects">
+                <td>{{project.name}}</td>
+                <td>{{project.is_internal}}</td>
+                <td>{{project.is_active}}</td>
               </tr>
             </tbody>
           </table>
@@ -38,13 +38,13 @@ export default {
   },
   methods: {
     loadProjects: function () {
-      this.$http.get('http://www.mocky.io/v2/585e03ce100000b82c501e8e').then((response) => {
-        // depending on your api, you may or may not have to make the .json() call
-        // if your repsonse.body is null, try this
-        response.json()
-        this.projects = response.body
-      }, (err) => {
-        console.log(err)
+      this.$http.get('http://127.0.0.1:8000/api/project/', {
+        headers:
+        {
+          'Authorization': 'Token ' + '535e7fe61707eae95f933558508690dbbb49115c'
+        }
+      }).then(function (response) {
+        this.projects = response.data
       })
     }
   },
@@ -52,4 +52,5 @@ export default {
     this.loadProjects()
   }
 }
+
 </script>
