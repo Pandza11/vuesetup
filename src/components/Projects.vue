@@ -15,10 +15,10 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="project in projects">
-                <td>{{project.name}}</td>
-                <td>{{project.is_internal}}</td>
-                <td>{{project.is_active}}</td>
+              <tr v-for="item in projects">
+                <td>{{item.name}}</td>
+                <td>{{item.assignedTo}}</td>
+                <td>{{item.priority}}</td>
               </tr>
             </tbody>
           </table>
@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'projects',
   data: function () {
@@ -38,13 +40,10 @@ export default {
   },
   methods: {
     loadProjects: function () {
-      this.$http.get('http://127.0.0.1:8000/api/project/', {
-        headers:
-        {
-          'Authorization': 'Token ' + '535e7fe61707eae95f933558508690dbbb49115c'
-        }
-      }).then(function (response) {
+      axios.get('http://www.mocky.io/v2/585e03ce100000b82c501e8e').then((response) => {
         this.projects = response.data
+      }, (err) => {
+        console.log(err)
       })
     }
   },
