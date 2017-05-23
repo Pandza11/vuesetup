@@ -6,6 +6,8 @@ import Resource from 'vue-resource'
 
 Vue.use(Resource)
 
+import store from './store'
+
 /* eslint-disable no-new */
 new Vue({
   template: `
@@ -19,6 +21,7 @@ new Vue({
   </div>
   `,
   router,
+  store,
   components: {
     navbar
   }

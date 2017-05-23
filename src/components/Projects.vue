@@ -3,53 +3,27 @@
     <div class="columns">
       <div class="column is-half">
         <div class="notification">
-          List of projects:
+          Project List
         </div>
-        <div class="">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Project Name</th>
-                <th>Assigned To</th>
-                <th>Priority</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="item in projects">
-                <td>{{item.name}}</td>
-                <td>{{item.assignedTo}}</td>
-                <td>{{item.priority}}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <project-list />
+        <add-project />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
+import projectList from '../components/projectList'
+import addProject from '../components/addProject'
 
 export default {
   name: 'projects',
-  data: function () {
-    return {
-      projects: []
-    }
-  },
-  methods: {
-    loadProjects: function () {
-      axios.get('http://www.mocky.io/v2/585e03ce100000b82c501e8e').then((response) => {
-        this.projects = response.data
-      }, (err) => {
-        console.log(err)
-      })
-    }
+  components: {
+    projectList,
+    addProject
   },
   mounted: function () {
-    this.loadProjects()
+    this.$store.dispatch('LOAD_PROJECT_LIST')
   }
 }
-
 </script>
